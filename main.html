@@ -1,16 +1,48 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-	<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Information</title>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+
+    <div id="browser-info"></div>
+
+    <script>
+        function getBrowserInfo() {
+            let userAgent = navigator.userAgent;
+            let browserName, version;
+
+            // Detecting the browser name and version from userAgent string
+            if (userAgent.includes("Firefox")) {
+                browserName = "Mozilla Firefox";
+                version = userAgent.match(/Firefox\/([0-9.]+)/)[1];
+            } else if (userAgent.includes("Chrome") && userAgent.includes("Edg")) {
+                browserName = "Microsoft Edge";
+                version = userAgent.match(/Edg\/([0-9.]+)/)[1];
+            } else if (userAgent.includes("Chrome")) {
+                browserName = "Google Chrome";
+                version = userAgent.match(/Chrome\/([0-9.]+)/)[1];
+            } else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
+                browserName = "Safari";
+                version = userAgent.match(/Version\/([0-9.]+)/)[1];
+            } else if (userAgent.includes("Trident")) {
+                browserName = "Internet Explorer";
+                version = userAgent.match(/rv:([0-9.]+)/)[1];
+            } else {
+                browserName = navigator.appName;
+                version = navigator.appVersion;
+            }
+
+            // Displaying the message
+            const message = `You are using ${browserName} version ${version}`;
+            document.getElementById("browser-info").innerText = message;
+        }
+
+        // Call the function to display the browser information
+        getBrowserInfo();
+    </script>
 
 </body>
-
 </html>
